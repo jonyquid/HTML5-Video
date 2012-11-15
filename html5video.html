@@ -1,0 +1,44 @@
+<!-- 
+The complete markup and script.
+
+By Samet Kohen
+
+-->
+
+<video id="originalVideo" width="640" height="360">
+   <source src="video.mp4" type="video/mp4" />
+   Your device does not support HTML5 video.
+</video>
+
+<button title="Generate Preview" onclick="generatePreview();"> Generate Preview</button>
+
+<canvas id="mediumPreview"> </canvas>
+<canvas id="smallPreview"> </canvas>
+
+<script>
+		function generatePreview() {
+		var video = document.getElementById('originalVideo');
+		var canvas1 = document.getElementById('previewMedium');
+		var context1 = canvas1.getContext('2d');
+		var canvas2 = document.getElementById('previewsSmall');
+		var context2 = canvas2.getContext('2d');
+		
+		canvas1.width = 320;
+		canvas1.height = 180;
+		canvas2.width = 160;
+		canvas2.height =90;
+		
+		video.addEventListener('play', function() {
+			drawVideo(this,context1,context2);
+		},false);
+		
+		video.play();
+	}
+	
+		function drawVideo(video,canvas1,canvas2) {
+		if(video.paused || video.ended) return false;
+		canvas1.drawImage(video,0,0,320,180);
+		canvas2.drawImage(video,0,0,160,90);
+		timeoutSet(drawVideos,25,video,canvas1,canvas2);
+	}
+</script>
